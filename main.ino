@@ -45,7 +45,6 @@
 
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(160, LED_PIN, NEO_GRB + NEO_KHZ800);
 
-#define OFF strip.Color(0, 0, 0) // Off color for LEDs
 #define PRESS_THRESHOLD_MIN 100 // Approx min # of cycles button held to trigger action
 #define PRESS_HOLD_THRESHOLD 10000 // Approx # of cycles button held down before considered a button hold action
 
@@ -68,6 +67,9 @@ int buttonState = 0; // HIGH, LOW
 float downCount = 0; // Increases as button is pushed down and held
 bool wasPressed = false; // Changed when button was pushed
 int rgb_stepper = 0; // Incremented when rgb values are to change
+int r = 0;
+int g = 0;
+int b = 0;
 
 // Initialization...
 void setup() {
@@ -96,10 +98,10 @@ void loop() {
   if (buttonState == HIGH && wasPressed == true) {
     // If button is pushed for a shorter duration of time
     if (downCount <= PRESS_HOLD_THRESHOLD && downCount >= PRESS_THRESHOLD_MIN) {
-      setAllColor(strip.Color(lights[(rgb_stepper + 120) % 360], lights[rgb_stepper], lights[(rgb_stepper + 240) % 360]));
+      setAllColor(strip.Color(r,g,b));
       Keyboard.write(KEY_LEFT_GUI); // Send Windows/Super/Meta keystroke back to PC
       delay(250); // Short delay to keep LEDs on
-      setAllColor(OFF); // Shut off LEDs
+      fadeToOff(); // Shut off LEDs
     }
     wasPressed = false;
     downCount = 0;
@@ -110,12 +112,34 @@ void loop() {
     if (downCount >= PRESS_HOLD_THRESHOLD) {
       delay(10); // Slow down rate at which fade through colors
       rgb_stepper += 1;
-      setAllColor(strip.Color(lights[(rgb_stepper + 120) % 360], lights[rgb_stepper], lights[(rgb_stepper + 240) % 360]));
+      r = lights[(rgb_stepper + 120) % 360];
+      g = lights[rgb_stepper];
+      b = lights[(rgb_stepper + 240) % 360];
+      setAllColor(strip.Color(r,g,b));
       if (rgb_stepper == 360) {
         rgb_stepper = 0;
       }
     }
     wasPressed = true;
+  }
+}
+
+void fadeToOff(){
+  // Temporary copies of stored rgb vals so we don't lose custom color
+  int t_r = r;
+  int t_g = g;
+  int t_b = b;
+  for(int i = 0; i < 255; i++){
+    if(t_r > 0)
+      t_r -=1;
+    if(t_g > 0)
+      t_g -=1;
+    if(t_b > 0)
+      t_b -=1;
+    setAllColor(t_r, t_g, t_b);
+    // Exit method if it's reached 0,0,0 early
+    if(t_r == 0 && t_g == 0 && t_b == 0)
+      return;
   }
 }
 
