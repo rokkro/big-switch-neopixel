@@ -136,7 +136,7 @@ void fadeToOff(){
       t_g -=1;
     if(t_b > 0)
       t_b -=1;
-    setAllColor(t_r, t_g, t_b);
+    setAllColor(strip.Color(t_r, t_g, t_b));
     // Exit method if it's reached 0,0,0 early
     if(t_r == 0 && t_g == 0 && t_b == 0)
       return;
