@@ -130,14 +130,20 @@ void fadeToOff(){
   int t_g = g;
   int t_b = b;
   for(int i = 0; i < 255; i++){
-    if(t_r > 0)
-      t_r -=1;
-    if(t_g > 0)
-      t_g -=1;
-    if(t_b > 0)
-      t_b -=1;
+    if(t_r > 2)
+      t_r -=3;
+    else if(t_r > 0)
+      t_r = 0;
+    if(t_g > 2)
+      t_g -=3;
+    else if(t_g > 0)
+      t_g = 0;
+    if(t_b > 2)
+      t_b -=3;
+    else if(t_b > 0)
+      t_b = 0;
     setAllColor(strip.Color(t_r, t_g, t_b));
-    // Exit method if it's reached 0,0,0 early
+    // Exit function if it's reached 0,0,0 early
     if(t_r == 0 && t_g == 0 && t_b == 0)
       return;
   }
