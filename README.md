@@ -5,7 +5,7 @@ Follow the guide [here](https://www.reddit.com/r/MechanicalKeyboards/comments/7o
 ##### Possible differences between the tutorial and my setup:
 Update the code to match your setup as necessary.
 
-  1. Different pins used in the diagram.
+  1. Different pins are used in the diagram.
   Edit these lines to match your pins:
   
     
