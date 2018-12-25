@@ -2,17 +2,17 @@
 
 Follow the guide [here](https://www.reddit.com/r/MechanicalKeyboards/comments/7oiv5o/guide_how_to_make_a_big_switch_lamp/) to make a lamp and usable keyboard button with NovelKey's Big Switch.
 
-#### Possible differences between the tutorial:
+#### Possible differences between the tutorial and my setup:
 Update the code to match your setup as necessary.
 
-  1. Different pins than used in the diagram.
-  Edit these to match your pins:
+  1. Different pins used in the diagram.
+  Edit these lines to match your pins:
   
     
     #define LED_PIN 5
     #define BUTTON_PIN 2
     
-  2. Used Arduino IDE instead of AVRDUDESS with my code.
+  2. Used Arduino IDE instead of AVRDUDESS with my code
   3. Used 16 LED NeoPixel ring and a 5V Pro Micro.
 
 ### Setup in Arduino IDE
